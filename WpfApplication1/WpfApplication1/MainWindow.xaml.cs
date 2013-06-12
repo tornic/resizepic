@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Drawing;
+using System.IO;
 
 namespace WpfApplication1
 {
@@ -50,9 +52,47 @@ namespace WpfApplication1
             // Display OpenFileDialog by calling ShowDialog method 
             Nullable<bool> result = dlg.ShowDialog();
 
-
             
+
+            if (result == true)
+            {
+                // Open document 
+                string filename = dlg.FileName;
+                string filename2 = "@E:\data\photo-id-pictures\resized.jpg";
+                System.Drawing.Image img = System.Drawing.Image.FromFile(filename);
+                System.Drawing.Size thumbnailSize = GetThumbnailSize(img);
+                System.Drawing.Image thumbnail = img.GetThumbnailImage(thumbnailSize.Width, thumbnailSize.Height, null, IntPtr.Zero);
+                thumbnail.Save(filename2, System.Drawing.Imaging.ImageFormat.Jpeg); //save photo as .jpg to disk
+                
+                
+            }         
         }
+
+        static System.Drawing.Size GetThumbnailSize(System.Drawing.Image original)
+        {
+
+            // Maximum size of any dimension.
+            const int maxPixels = 100;
+
+            // Width and height.
+            int originalWidth = original.Width;
+            int originalHeight = original.Height;
+
+            // Compute best factor to scale entire image based on larger dimension.
+            double factor;
+            if (originalWidth > originalHeight)
+            {
+                factor = (double)maxPixels / originalWidth;
+            }
+            else
+            {
+                factor = (double)maxPixels / originalHeight;
+            }
+
+            // Return thumbnail size.
+            return new System.Drawing.Size((int)(originalWidth * factor), (int)(originalHeight * factor));
+        }
+        
 
         
         
@@ -65,4 +105,5 @@ namespace WpfApplication1
 
         
     }
+    
 }
