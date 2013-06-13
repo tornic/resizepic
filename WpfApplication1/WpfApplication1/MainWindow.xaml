@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="450" Width="625">
     <Grid>
-        <Button Content="Press me" HorizontalAlignment="Left" Margin="271,353,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.303,0.979" Click="Button_Click"/>
-        <TextBox x:Name="mybox" HorizontalAlignment="Left" Height="23" Margin="223,314,0,0" TextWrapping="Wrap" Text="Width" VerticalAlignment="Top" Width="66"/>
+        <Button Content="Press me" HorizontalAlignment="Left" Margin="275,353,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.303,0.979" Click="Button_Click"/>
+        <TextBox x:Name="mybox" HorizontalAlignment="Left" Height="23" Margin="212,314,0,0" TextWrapping="Wrap" Text="Width" VerticalAlignment="Top" Width="66"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="349,314,0,0" TextWrapping="Wrap" Text="Height" VerticalAlignment="Top" Width="72"/>
         <Image HorizontalAlignment="Left" Height="222" Margin="10,10,0,0" VerticalAlignment="Top" Width="497"/>
         <Menu IsMainMenu="True" Height="27" HorizontalAlignment="Left" Name="menu1" VerticalAlignment="Top" Width="625" >
