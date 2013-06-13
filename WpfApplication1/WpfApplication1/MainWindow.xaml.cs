@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,6 +21,9 @@ namespace WpfApplication1
     /// </summary>
     public partial class MainWindow : Window
     {
+        string filename = null;
+        System.Drawing.Image img = null;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -29,12 +31,19 @@ namespace WpfApplication1
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            string filename2 = @"C:\temp\resized.jpg";
+            
+            img = System.Drawing.Image.FromFile(filename);
+            System.Drawing.Size thumbnailSize = GetThumbnailSize(img);
+            System.Drawing.Image thumbnail = img.GetThumbnailImage(thumbnailSize.Width, thumbnailSize.Height, null, IntPtr.Zero);
+            thumbnail.Save(filename2, System.Drawing.Imaging.ImageFormat.Jpeg); //save photo as .jpg to disk
+            MessageBox.Show("Finished");
 
         }
 
-        private void New_Click(object sender, RoutedEventArgs e)
+        private void Exit_Click(object sender, RoutedEventArgs e)
         {
-
+            Application.Current.Shutdown();
         }
 
         private void Open_Click(object sender, RoutedEventArgs e)
@@ -42,29 +51,17 @@ namespace WpfApplication1
             // Create OpenFileDialog 
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
-
-
             // Set filter for file extension and default file extension 
             dlg.DefaultExt = ".txt";
             dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
-
-
+            
             // Display OpenFileDialog by calling ShowDialog method 
             Nullable<bool> result = dlg.ShowDialog();
-
-            
-
             if (result == true)
             {
-                // Open document 
-                string filename = dlg.FileName;
-                string filename2 = "@E:\data\photo-id-pictures\resized.jpg";
-                System.Drawing.Image img = System.Drawing.Image.FromFile(filename);
-                System.Drawing.Size thumbnailSize = GetThumbnailSize(img);
-                System.Drawing.Image thumbnail = img.GetThumbnailImage(thumbnailSize.Width, thumbnailSize.Height, null, IntPtr.Zero);
-                thumbnail.Save(filename2, System.Drawing.Imaging.ImageFormat.Jpeg); //save photo as .jpg to disk
-                
-                
+                // Get filename 
+                filename = dlg.FileName;
+                myImage.Source = new BitmapImage(new Uri(filename));                
             }         
         }
 
@@ -92,17 +89,6 @@ namespace WpfApplication1
             // Return thumbnail size.
             return new System.Drawing.Size((int)(originalWidth * factor), (int)(originalHeight * factor));
         }
-        
-
-        
-        
-
-        
-
-        
-
-        
-
         
     }
     
